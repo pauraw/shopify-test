@@ -1,0 +1,176 @@
+{
+  "general": {
+    "meta": {
+      "tags": "Mit Stichwörtern versehen \"{{ tags }}\"",
+      "page": "Seite {{ page }}"
+    },
+    "breadcrumbs": {
+      "home": "Startseite"
+    },
+    "password_page": {
+      "login_form_heading": "Shop mit Passwort betreten",
+      "login_password_button": "Mit Passwort betreten",
+      "login_form_password_label": "Passwort",
+      "login_form_password_placeholder": "Dein Passwort",
+      "login_form_error": "Falsches Passwort!",
+      "login_form_submit": "Betreten"
+    }
+  },
+  "accessibility": {
+    "skip_to_content": "Zum Inhalt springen",
+    "close": "Schließen",
+    "next_slide": "Nächste Folie",
+    "previous_slide": "Vorherige Folie",
+    "loading": "Wird geladen...",
+    "of": "von",
+    "star_reviews_info": "{{ rating_value }} von {{ rating_max }} Sternen",
+    "total_reviews": "Gesamtbewertungen: {{ count }}"
+  },
+  "sections": {
+    "announcement_bar": {
+      "announcement": "Ankündigung"
+    },
+    "header": {
+      "menu": "Menü",
+      "cart_count": {
+        "one": "{{ count }} Artikel",
+        "other": "{{ count }} Artikel"
+      }
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "In den Einkaufswagen",
+      "sold_out": "Ausverkauft",
+      "unavailable": "Nicht verfügbar",
+      "in_stock": "Auf Lager, in 2-3 Tagen bei dir",
+      "out_of_stock": "Nicht auf Lager",
+      "include_taxes": "inkl. MwSt.",
+      "price": {
+        "from_price_html": "Ab {{ price }}",
+        "regular_price": "Normaler Preis",
+        "sale_price": "Sonderpreis",
+        "unit_price": "Stückpreis"
+      },
+      "quantity": {
+        "label": "Menge",
+        "increase": "Menge erhöhen",
+        "decrease": "Menge verringern"
+      },
+      "description": "Beschreibung",
+      "share": "Teilen",
+      "variant_sold_out_or_unavailable": "Variante ausverkauft oder nicht verfügbar",
+      "media": {
+        "load_image": "Bild {{ index }} in Galerieansicht laden",
+        "load_video": "Video abspielen",
+        "open_media": "{{ index }} von {{ count }} Medien in Modal öffnen"
+      },
+      "added_to_cart": "Zum Warenkorb hinzugefügt"
+    },
+    "facets": {
+      "apply": "Anwenden",
+      "clear": "Löschen",
+      "clear_all": "Alle löschen",
+      "filter_by_label": "Filtern nach",
+      "filters_selected": {
+        "one": "{{ count }} ausgewählt",
+        "other": "{{ count }} ausgewählt"
+      },
+      "from": "Von",
+      "max_price": "Der höchste Preis ist {{ price }}",
+      "price": "Preis",
+      "reset": "Zurücksetzen",
+      "sort_by_label": "Sortieren nach",
+      "to": "Bis"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Warenkorb",
+      "subtotal": "Zwischensumme",
+      "note": "Bestellhinweis",
+      "checkout": "Zur Kasse",
+      "view_cart": "Warenkorb anzeigen",
+      "empty": "Dein Warenkorb ist leer",
+      "continue_shopping": "Einkauf fortsetzen",
+      "remove": "Entfernen",
+      "taxes_and_shipping_policy_at_checkout_html": "Steuern und <a href=\"{{ link }}\">Versandkosten<\/a> werden an der Kasse berechnet",
+      "taxes_included_but_shipping_at_checkout": "Steuern inbegriffen. Versandkosten werden an der Kasse berechnet.",
+      "taxes_and_shipping_at_checkout": "Steuern und Versandkosten werden an der Kasse berechnet"
+    },
+    "items": {
+      "product": "Produkt",
+      "price": "Preis",
+      "quantity": "Menge",
+      "total": "Gesamt"
+    },
+    "error": {
+      "general": "Es gab einen Fehler. Bitte versuche es erneut."
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "Mein Konto",
+      "details": "Kontodetails",
+      "view_addresses": "Adressen anzeigen",
+      "return": "Zurück zu Kontodetails"
+    },
+    "log_in": "Anmelden",
+    "log_out": "Abmelden",
+    "register": "Registrieren",
+    "addresses": {
+      "title": "Adressen",
+      "add_new": "Neue Adresse hinzufügen",
+      "edit_address": "Adresse bearbeiten",
+      "default": "Standard",
+      "set_default": "Als Standardadresse festlegen",
+      "delete": "Löschen",
+      "delete_confirm": "Bist du sicher, dass du diese Adresse löschen möchtest?"
+    },
+    "orders": {
+      "title": "Bestellverlauf",
+      "order_number": "Bestellung",
+      "order_number_link": "Bestellnummer {{ number }}",
+      "date": "Datum",
+      "payment_status": "Zahlungsstatus",
+      "fulfillment_status": "Erfüllungsstatus",
+      "total": "Gesamt",
+      "none": "Du hast noch keine Bestellungen aufgegeben."
+    }
+  },
+  "contact": {
+    "form": {
+      "name": "Name",
+      "email": "E-Mail",
+      "phone": "Telefonnummer",
+      "message": "Nachricht",
+      "send": "Absenden",
+      "post_success": "Danke für deine Nachricht. Wir melden uns bald bei dir.",
+      "error_heading": "Bitte korrigiere folgende Fehler:"
+    }
+  },
+  "date_formats": {
+    "month_year": "%B %Y",
+    "month_day_year": "%d. %B %Y"
+  },
+  "newsletter": {
+    "label": "E-Mail",
+    "success": "Danke für deine Anmeldung!",
+    "button_label": "Abonnieren"
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "Hier ist dein Geschenkgutschein im Wert von {{ value }} für {{ shop }}!",
+      "subtext": "Dein Geschenkgutschein",
+      "gift_card_code": "Geschenkgutscheincode",
+      "shop_link": "Im Onlineshop einkaufen",
+      "remaining_html": "Verbleibend {{ balance }}",
+      "add_to_apple_wallet": "Zu Apple Wallet hinzufügen",
+      "qr_image_alt": "QR-Code – zum Einlösen scannen",
+      "copy_code": "Code kopieren",
+      "expired": "Abgelaufen",
+      "copy_code_success": "Code erfolgreich kopiert",
+      "print_gift_card": "Drucken"
+    }
+  }
+}

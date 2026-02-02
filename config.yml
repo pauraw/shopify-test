@@ -1,0 +1,9 @@
+# Shopify Theme Development Configuration
+# This file is used by Shopify CLI for theme development
+
+development:
+  store: your-store.myshopify.com
+  theme_id: development
+  password: your-api-password
+  ignore_files:
+    - config/settings_data.json

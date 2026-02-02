@@ -1,0 +1,90 @@
+{% comment %}
+  Product Gallery Snippet
+
+  Usage:
+    {% render 'product-gallery', product: product %}
+
+  Parameters:
+    - product: The product object
+    - enable_zoom: Enable image zoom on hover (default: true)
+{% endcomment %}
+
+{%- assign enable_zoom = enable_zoom | default: true -%}
+
+<div class="product-gallery" data-product-gallery>
+  {% comment %} Desktop Thumbnails {% endcomment %}
+  <div class="product-gallery__thumbnails desktop-only">
+    {%- for media in product.media -%}
+      {%- if media.media_type == 'image' -%}
+        <button
+          type="button"
+          class="product-gallery__thumbnail{% if forloop.first %} is-active{% endif %}"
+          data-thumbnail-index="{{ forloop.index0 }}"
+          aria-label="{{ 'products.product.media.load_image' | t: index: forloop.index }}"
+        >
+          <img
+            src="{{ media | image_url: width: 100 }}"
+            alt="{{ media.alt | escape }}"
+            width="80"
+            height="80"
+            loading="lazy"
+          >
+        </button>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  {% comment %} Main Image Container {% endcomment %}
+  <div class="product-gallery__main{% if enable_zoom %} product-gallery__main--zoom{% endif %}" data-gallery-main>
+    {% comment %} Desktop Navigation Arrows {% endcomment %}
+    <button type="button" class="product-gallery__arrow product-gallery__arrow--prev desktop-only" data-gallery-prev aria-label="Vorheriges Bild">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+
+    {% comment %} Image Slider {% endcomment %}
+    <div class="product-gallery__slider" data-gallery-slider>
+      {%- for media in product.media -%}
+        {%- if media.media_type == 'image' -%}
+          <div class="product-gallery__slide{% if forloop.first %} is-active{% endif %}" data-slide-index="{{ forloop.index0 }}">
+            <img
+              src="{{ media | image_url: width: 800 }}"
+              srcset="{{ media | image_url: width: 400 }} 400w,
+                      {{ media | image_url: width: 600 }} 600w,
+                      {{ media | image_url: width: 800 }} 800w,
+                      {{ media | image_url: width: 1000 }} 1000w"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              alt="{{ media.alt | escape }}"
+              width="{{ media.width }}"
+              height="{{ media.height }}"
+              loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+            >
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <button type="button" class="product-gallery__arrow product-gallery__arrow--next desktop-only" data-gallery-next aria-label="Nächstes Bild">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+  </div>
+
+  {% comment %} Mobile Dot Navigation {% endcomment %}
+  <div class="product-gallery__dots mobile-only" data-gallery-dots>
+    {%- assign image_count = 0 -%}
+    {%- for media in product.media -%}
+      {%- if media.media_type == 'image' -%}
+        <button
+          type="button"
+          class="product-gallery__dot{% if image_count == 0 %} is-active{% endif %}"
+          data-dot-index="{{ image_count }}"
+          aria-label="Bild {{ image_count | plus: 1 }} anzeigen"
+        ></button>
+        {%- assign image_count = image_count | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>

@@ -1,0 +1,251 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Neoric Theme",
+    "theme_version": "1.0.0",
+    "theme_author": "Neoric",
+    "theme_documentation_url": "https://neoric.de/support",
+    "theme_support_url": "https://neoric.de/support"
+  },
+  {
+    "name": "Logo & Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "min": 50,
+        "max": 250,
+        "step": 10,
+        "unit": "px",
+        "label": "Logo Breite (Desktop)",
+        "default": 120
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "Empfohlen: 32x32px PNG"
+      }
+    ]
+  },
+  {
+    "name": "Farben",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Primärfarben"
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primärfarbe",
+        "default": "#1F47FF",
+        "info": "Wird für Buttons und Akzente verwendet"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary",
+        "label": "Sekundärfarbe",
+        "default": "#000000"
+      },
+      {
+        "type": "header",
+        "content": "Textfarben"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Textfarbe",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "color_text_secondary",
+        "label": "Sekundäre Textfarbe",
+        "default": "#666666"
+      },
+      {
+        "type": "header",
+        "content": "Hintergründe"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Hintergrundfarbe",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_background_secondary",
+        "label": "Sekundärer Hintergrund",
+        "default": "#F8F8F8"
+      },
+      {
+        "type": "header",
+        "content": "Statusfarben"
+      },
+      {
+        "type": "color",
+        "id": "color_success",
+        "label": "Erfolg / Verfügbar",
+        "default": "#25A525"
+      },
+      {
+        "type": "color",
+        "id": "color_error",
+        "label": "Fehler / Ausverkauft",
+        "default": "#DC3545"
+      },
+      {
+        "type": "color",
+        "id": "color_sale",
+        "label": "Sale Preis",
+        "default": "#25A525"
+      }
+    ]
+  },
+  {
+    "name": "Typografie",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Überschriften Schriftart",
+        "default": "montserrat_n6"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Fließtext Schriftart",
+        "default": "montserrat_n4"
+      },
+      {
+        "type": "range",
+        "id": "font_size_base",
+        "min": 14,
+        "max": 18,
+        "step": 1,
+        "unit": "px",
+        "label": "Basis Schriftgröße",
+        "default": 16
+      }
+    ]
+  },
+  {
+    "name": "Warenkorb",
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "Warenkorb Typ",
+        "options": [
+          {
+            "value": "drawer",
+            "label": "Drawer (Seitenleiste)"
+          },
+          {
+            "value": "page",
+            "label": "Separate Seite"
+          }
+        ],
+        "default": "drawer"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_show_vendor",
+        "label": "Hersteller im Warenkorb anzeigen",
+        "default": false
+      }
+    ]
+  },
+  {
+    "name": "Produkt",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "product_show_vendor",
+        "label": "Hersteller auf Produktseite anzeigen",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "product_show_sku",
+        "label": "SKU anzeigen",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "product_show_quantity",
+        "label": "Mengenauswahl anzeigen",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "product_enable_zoom",
+        "label": "Bild-Zoom aktivieren",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Social Media Links"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "Twitter"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": "YouTube"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok_link",
+        "label": "TikTok"
+      },
+      {
+        "type": "header",
+        "content": "Teilen"
+      },
+      {
+        "type": "checkbox",
+        "id": "share_facebook",
+        "label": "Auf Facebook teilen aktivieren",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_twitter",
+        "label": "Auf Twitter teilen aktivieren",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_whatsapp",
+        "label": "Per WhatsApp teilen aktivieren",
+        "default": true
+      }
+    ]
+  }
+]

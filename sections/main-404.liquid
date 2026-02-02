@@ -1,0 +1,77 @@
+<section class="page-404">
+  <div class="page-404__container">
+    <div class="page-404__content">
+      <h1 class="page-404__title">404</h1>
+      <h2 class="page-404__subtitle">Seite nicht gefunden</h2>
+      <p class="page-404__text">
+        Die gesuchte Seite existiert leider nicht oder wurde verschoben.
+      </p>
+      <a href="/" class="btn btn--primary page-404__button">
+        Zurück zur Startseite
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .page-404 {
+    padding: 80px 20px;
+    text-align: center;
+  }
+
+  .page-404__container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .page-404__title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 120px;
+    font-weight: 700;
+    color: #1F47FF;
+    margin: 0;
+    line-height: 1;
+  }
+
+  .page-404__subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: #000;
+    margin: 20px 0 15px;
+  }
+
+  .page-404__text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    color: #666;
+    margin: 0 0 30px;
+    line-height: 1.6;
+  }
+
+  .page-404__button {
+    display: inline-flex;
+  }
+
+  @media (min-width: 768px) {
+    .page-404 {
+      padding: 120px 20px;
+    }
+
+    .page-404__title {
+      font-size: 180px;
+    }
+
+    .page-404__subtitle {
+      font-size: 32px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "404 Seite",
+  "tag": "section",
+  "class": "section-404"
+}
+{% endschema %}

@@ -1,0 +1,51 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "show_vendor": true,
+        "show_quantity": true,
+        "enable_sticky_info": true
+      }
+    },
+    "trust-icons": {
+      "type": "trust-icons",
+      "blocks": {
+        "quality": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "quality",
+            "title": "100% Qualität",
+            "description": "Hochwertige Materialien für beste Qualität"
+          }
+        },
+        "silicone": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "silicone",
+            "title": "Weiches Silikon",
+            "description": "Angenehm zu tragen, den ganzen Tag"
+          }
+        },
+        "shipping": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "shipping",
+            "title": "Schneller Versand",
+            "description": "In 2-3 Werktagen bei dir"
+          }
+        }
+      },
+      "block_order": ["quality", "silicone", "shipping"],
+      "settings": {
+        "background_color": "#f8f8f8",
+        "icon_background": "#e8f0fe",
+        "icon_color": "#1F47FF"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "trust-icons"
+  ]
+}

@@ -1,0 +1,413 @@
+<header class="header" data-header>
+  <div class="header__container">
+    {% comment %} Logo {% endcomment %}
+    <div class="header__logo">
+      <a href="/" class="header__logo-link">
+        {%- if section.settings.logo != blank -%}
+          <img
+            src="{{ section.settings.logo | image_url: width: 200 }}"
+            alt="{{ shop.name }}"
+            class="header__logo-image"
+            width="120"
+            height="auto"
+            loading="eager"
+          >
+        {%- else -%}
+          <img
+            src="{{ 'logo-neoric.png' | asset_url }}"
+            alt="{{ shop.name }}"
+            class="header__logo-image"
+            width="120"
+            height="auto"
+            loading="eager"
+          >
+        {%- endif -%}
+      </a>
+    </div>
+
+    {% comment %} Desktop Navigation {% endcomment %}
+    <nav class="header__nav desktop-only" aria-label="Hauptnavigation">
+      <ul class="header__nav-list">
+        {%- for link in section.settings.menu.links -%}
+          <li class="header__nav-item">
+            <a href="{{ link.url }}" class="header__nav-link{% if link.active %} is-active{% endif %}">
+              {{ link.title }}
+            </a>
+            {%- if link.links != blank -%}
+              <ul class="header__dropdown">
+                {%- for child_link in link.links -%}
+                  <li class="header__dropdown-item">
+                    <a href="{{ child_link.url }}" class="header__dropdown-link">
+                      {{ child_link.title }}
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    {% comment %} Header Actions {% endcomment %}
+    <div class="header__actions">
+      {% comment %} Cart Icon {% endcomment %}
+      <button type="button" class="header__cart" data-cart-toggle aria-label="{{ 'cart.general.title' | t }}">
+        {% render 'icon-cart' %}
+        <span class="header__cart-count{% if cart.item_count == 0 %} is-hidden{% endif %}" data-cart-count>
+          {{ cart.item_count }}
+        </span>
+      </button>
+
+      {% comment %} Mobile Menu Toggle {% endcomment %}
+      <button type="button" class="header__menu-toggle mobile-only" data-menu-toggle aria-label="Menü öffnen" aria-expanded="false">
+        <span class="header__menu-icon">
+          <span class="header__menu-line"></span>
+          <span class="header__menu-line"></span>
+          <span class="header__menu-line"></span>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  {% comment %} Mobile Navigation {% endcomment %}
+  <div class="header__mobile-nav mobile-only" data-mobile-nav aria-hidden="true">
+    <nav aria-label="Mobile Navigation">
+      <ul class="header__mobile-nav-list">
+        {%- for link in section.settings.menu.links -%}
+          <li class="header__mobile-nav-item">
+            <a href="{{ link.url }}" class="header__mobile-nav-link{% if link.active %} is-active{% endif %}">
+              {{ link.title }}
+            </a>
+            {%- if link.links != blank -%}
+              <ul class="header__mobile-dropdown">
+                {%- for child_link in link.links -%}
+                  <li class="header__mobile-dropdown-item">
+                    <a href="{{ child_link.url }}" class="header__mobile-dropdown-link">
+                      {{ child_link.title }}
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    background-color: #fff;
+    border-bottom: 1px solid #e5e5e5;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 20px;
+  }
+
+  /* Logo */
+  .header__logo-link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+
+  .header__logo-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #000;
+    letter-spacing: 2px;
+  }
+
+  .header__logo-image {
+    max-height: 40px;
+    width: auto;
+  }
+
+  /* Desktop Navigation */
+  .header__nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .header__nav-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 30px;
+  }
+
+  .header__nav-item {
+    position: relative;
+  }
+
+  .header__nav-link {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #000;
+    text-decoration: none;
+    padding: 10px 0;
+    display: block;
+    transition: color 0.2s ease;
+  }
+
+  .header__nav-link:hover,
+  .header__nav-link.is-active {
+    color: #1F47FF;
+  }
+
+  .header__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 10px 0;
+    min-width: 180px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.2s ease;
+    list-style: none;
+  }
+
+  .header__nav-item:hover .header__dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .header__dropdown-link {
+    display: block;
+    padding: 8px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+
+  .header__dropdown-link:hover {
+    background-color: #f5f5f5;
+  }
+
+  /* Header Actions */
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .header__cart {
+    position: relative;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .header__cart svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .header__cart-count {
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    background-color: #1F47FF;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .header__cart-count.is-hidden {
+    display: none;
+  }
+
+  /* Mobile Menu Toggle */
+  .header__menu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+  }
+
+  .header__menu-icon {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 24px;
+  }
+
+  .header__menu-line {
+    display: block;
+    height: 2px;
+    background-color: #000;
+    transition: all 0.3s ease;
+  }
+
+  .header__menu-toggle[aria-expanded="true"] .header__menu-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .header__menu-toggle[aria-expanded="true"] .header__menu-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .header__menu-toggle[aria-expanded="true"] .header__menu-line:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+  /* Mobile Navigation */
+  .header__mobile-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .header__mobile-nav.is-open {
+    max-height: 400px;
+  }
+
+  .header__mobile-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .header__mobile-nav-item {
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .header__mobile-nav-item:last-child {
+    border-bottom: none;
+  }
+
+  .header__mobile-nav-link {
+    display: block;
+    padding: 15px 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #000;
+    text-decoration: none;
+  }
+
+  .header__mobile-dropdown {
+    list-style: none;
+    padding: 0 0 15px 20px;
+    margin: 0;
+  }
+
+  .header__mobile-dropdown-link {
+    display: block;
+    padding: 10px 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: #666;
+    text-decoration: none;
+  }
+
+  /* Responsive */
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+
+  @media (min-width: 768px) {
+    .desktop-only {
+      display: flex;
+    }
+
+    .mobile-only {
+      display: none;
+    }
+
+    .header__container {
+      padding: 20px 40px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('[data-menu-toggle]');
+    const mobileNav = document.querySelector('[data-mobile-nav]');
+
+    if (menuToggle && mobileNav) {
+      menuToggle.addEventListener('click', function() {
+        const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        menuToggle.setAttribute('aria-expanded', !isExpanded);
+        mobileNav.classList.toggle('is-open');
+        mobileNav.setAttribute('aria-hidden', isExpanded);
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Header",
+  "tag": "header",
+  "class": "section-header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo Text (falls kein Bild)",
+      "default": "NEORIC"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menü",
+      "default": "main-menu"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header"
+    }
+  ]
+}
+{% endschema %}
