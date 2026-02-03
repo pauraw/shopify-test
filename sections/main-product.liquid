@@ -1,5 +1,6 @@
-{% comment %} Swiper.js CSS {% endcomment %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+{% comment %} Swiper.js CSS - Preload für bessere Performance {% endcomment %}
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"></noscript>
 
 <section class="product-section" data-product-section>
   <div class="product-section__container">
@@ -665,48 +666,55 @@
   }
 </style>
 
-{% comment %} Swiper.js {% endcomment %}
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+{% comment %} Swiper.js - Async laden {% endcomment %}
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const swiper = new Swiper('.product-gallery__swiper', {
-      // Mobile defaults
-      loop: true,
-      slidesPerView: 1.15,
-      centeredSlides: true,
-      spaceBetween: 10,
-      grabCursor: true,
-
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-
-      // Desktop overrides (ab 1024px)
-      breakpoints: {
-        1024: {
-          slidesPerView: 1,
-          centeredSlides: false,
-          spaceBetween: 0,
-          loop: false,
+  (function() {
+    function initSwiper() {
+      const swiper = new Swiper('.product-gallery__swiper', {
+        loop: true,
+        slidesPerView: 1.15,
+        centeredSlides: true,
+        spaceBetween: 10,
+        grabCursor: true,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
         },
-      },
-
-      on: {
-        slideChange: function () {
-          const thumbnails = document.querySelectorAll('.product-gallery__thumbnail');
-          thumbnails.forEach((thumb, i) => {
-            thumb.classList.toggle('is-active', i === this.realIndex);
-          });
+        breakpoints: {
+          1024: {
+            slidesPerView: 1,
+            centeredSlides: false,
+            spaceBetween: 0,
+            loop: false,
+          },
         },
-      },
-    });
+        on: {
+          slideChange: function () {
+            const thumbnails = document.querySelectorAll('.product-gallery__thumbnail');
+            thumbnails.forEach((thumb, i) => {
+              thumb.classList.toggle('is-active', i === this.realIndex);
+            });
+          },
+        },
+      });
 
-    // Thumbnail clicks
-    document.querySelectorAll('.product-gallery__thumbnail').forEach((thumb, index) => {
-      thumb.addEventListener('click', () => swiper.slideToLoop(index));
-    });
-  });
+      document.querySelectorAll('.product-gallery__thumbnail').forEach((thumb, index) => {
+        thumb.addEventListener('click', () => swiper.slideToLoop(index));
+      });
+    }
+
+    // Swiper async laden
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
+    script.onload = function() {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSwiper);
+      } else {
+        initSwiper();
+      }
+    };
+    document.head.appendChild(script);
+  })();
 </script>
 
 {% schema %}
