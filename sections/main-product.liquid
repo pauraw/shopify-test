@@ -556,6 +556,10 @@
 
   .product-info__add-to-cart-loading {
     display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
   .product-info__add-to-cart.is-loading .product-info__add-to-cart-loading {
@@ -563,7 +567,7 @@
   }
 
   .product-info__add-to-cart.is-loading [data-add-to-cart-text] {
-    visibility: hidden;
+    opacity: 0;
   }
 
   .spinner {

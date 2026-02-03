@@ -230,6 +230,29 @@
           button.addEventListener('click', closeCartDrawer);
         });
 
+        // Product page quantity buttons
+        document.querySelectorAll('[data-quantity-minus]').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            const input = this.closest('.product-info__quantity-selector').querySelector('[data-quantity-input]');
+            if (input) {
+              const currentVal = parseInt(input.value) || 1;
+              if (currentVal > 1) {
+                input.value = currentVal - 1;
+              }
+            }
+          });
+        });
+
+        document.querySelectorAll('[data-quantity-plus]').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            const input = this.closest('.product-info__quantity-selector').querySelector('[data-quantity-input]');
+            if (input) {
+              const currentVal = parseInt(input.value) || 1;
+              input.value = currentVal + 1;
+            }
+          });
+        });
+
         // Intercept add to cart forms
         document.addEventListener('submit', function(e) {
           const form = e.target.closest('[data-product-form]');
