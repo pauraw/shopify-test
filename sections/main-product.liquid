@@ -289,7 +289,7 @@
   }
 
   /* Mobile: Carousel with peek effect */
-  @media (max-width: 767px) {
+  @media (max-width: 1023px) {
     .product-gallery {
       margin-left: -15px;
       margin-right: -15px;
@@ -330,14 +330,13 @@
     left: 0;
     top: 0;
     bottom: 0;
-    width: 80px;
-    padding: 10px;
+    width: 100px;
     overflow-y: auto;
   }
 
   .product-gallery__thumbnail {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     border: 2px solid transparent;
     border-radius: 4px;
     overflow: hidden;
@@ -634,7 +633,7 @@
   }
 
   /* Desktop Styles */
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     .product-section {
       padding: 40px 20px;
     }
@@ -650,7 +649,7 @@
       min-width: 0; /* Wichtig für Swiper in Flexbox */
       position: relative;
       margin-bottom: 0;
-      padding-left: 90px;
+      padding-left: 110px;
     }
 
     .product-info {
@@ -697,19 +696,14 @@
       spaceBetween: 10,
       grabCursor: true,
 
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
       },
 
-      // Desktop overrides
+      // Desktop overrides (ab 1024px)
       breakpoints: {
-        768: {
+        1024: {
           slidesPerView: 1,
           centeredSlides: false,
           spaceBetween: 0,
