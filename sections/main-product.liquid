@@ -112,10 +112,15 @@
                 {%- for variant in product.variants -%}
                   <option
                     value="{{ variant.id }}"
-                    {% if variant == product.selected_or_first_available_variant %}selected{% endif %}
-                    {% unless variant.available %}disabled{% endunless %}
+                    {% if variant == product.selected_or_first_available_variant %}
+                      selected
+                    {% endif %}
+                    {% unless variant.available %}
+                      disabled
+                    {% endunless %}
                   >
-                    {{ variant.title }}{% unless variant.available %} - {{ 'products.product.sold_out' | t }}{% endunless %}
+                    {{ variant.title -}}
+                    {%- unless variant.available %} - {{ 'products.product.sold_out' | t }}{% endunless %}
                   </option>
                 {%- endfor -%}
               </select>
@@ -235,29 +240,6 @@
     width: 100%;
     height: auto;
     display: block;
-  }
-
-  /* Swiper Pagination (Dots) */
-  .product-gallery__swiper .swiper-pagination {
-    position: relative;
-    margin-top: 15px;
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-  }
-
-  .product-gallery__swiper .swiper-pagination-bullet {
-    width: 10px;
-    height: 10px;
-    background: #ddd;
-    opacity: 1;
-    margin: 0 !important;
-    transition: all 0.2s ease;
-  }
-
-  .product-gallery__swiper .swiper-pagination-bullet-active {
-    background: #000;
-    transform: scale(1.2);
   }
 
   /* Swiper Navigation Arrows */
