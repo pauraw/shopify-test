@@ -50,33 +50,33 @@
       {%- endif -%}
     </div>
 
-    {% comment %} Variant Selector {% endcomment %}
-    {%- if product.has_only_default_variant == false -%}
-      <div class="product-info__variants">
-        {%- for option in product.options_with_values -%}
-          <div class="product-info__variant-group">
-            <label class="product-info__variant-label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
-              {{ option.name }}
-            </label>
-            <select
-              id="Option-{{ section.id }}-{{ forloop.index0 }}"
-              class="product-info__variant-select"
-              data-option-index="{{ forloop.index0 }}"
-            >
-              {%- for value in option.values -%}
-                <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>
-                  {{ value }}
-                </option>
-              {%- endfor -%}
-            </select>
-          </div>
-        {%- endfor -%}
-      </div>
-    {%- endif -%}
-
     {% comment %} Add to Cart Form {% endcomment %}
     {%- form 'product', product, id: 'product-form', data-product-form: '', class: 'product-info__form' -%}
-      <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
+      {% comment %} Variant Selector - direkt mit Varianten-IDs {% endcomment %}
+      {%- if product.has_only_default_variant == false -%}
+        <div class="product-info__variants">
+          <label class="product-info__variant-label" for="Variant-{{ section.id }}">
+            {{ product.options.first }}
+          </label>
+          <select
+            id="Variant-{{ section.id }}"
+            name="id"
+            class="product-info__variant-select"
+          >
+            {%- for variant in product.variants -%}
+              <option
+                value="{{ variant.id }}"
+                {% if variant == current_variant %}selected{% endif %}
+                {% unless variant.available %}disabled{% endunless %}
+              >
+                {{ variant.title }}{% unless variant.available %} - {{ 'products.product.sold_out' | t }}{% endunless %}
+              </option>
+            {%- endfor -%}
+          </select>
+        </div>
+      {%- else -%}
+        <input type="hidden" name="id" value="{{ current_variant.id }}">
+      {%- endif -%}
 
       {%- if show_quantity -%}
         <div class="product-info__quantity">
