@@ -29,7 +29,6 @@
 
   {% comment %} Theme CSS {% endcomment %}
   {{ 'base.css' | asset_url | stylesheet_tag }}
-  {{ 'product-gallery.css' | asset_url | stylesheet_tag }}
   {{ 'custom-theme.css' | asset_url | stylesheet_tag }}
 
   {{ content_for_header }}
@@ -101,8 +100,6 @@
   </div>
 
   {% comment %} Theme JavaScript {% endcomment %}
-  {{ 'product-gallery.js' | asset_url | script_tag }}
-
   <script>
     // Cart Drawer Toggle
     document.addEventListener('DOMContentLoaded', function() {

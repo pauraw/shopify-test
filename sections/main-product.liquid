@@ -35,10 +35,12 @@
               <div class="swiper-slide">
                 <img
                   src="{{ media | image_url: width: 800 }}"
-                  srcset="{{ media | image_url: width: 400 }} 400w,
-                          {{ media | image_url: width: 600 }} 600w,
-                          {{ media | image_url: width: 800 }} 800w,
-                          {{ media | image_url: width: 1000 }} 1000w"
+                  srcset="
+                    {{ media | image_url: width: 400 }} 400w,
+                    {{ media | image_url: width: 600 }} 600w,
+                    {{ media | image_url: width: 800 }} 800w,
+                    {{ media | image_url: width: 1000 }} 1000w
+                  "
                   sizes="(max-width: 768px) 100vw, 50vw"
                   alt="{{ media.alt | escape }}"
                   width="{{ media.width }}"
@@ -108,7 +110,12 @@
                   data-option-index="{{ forloop.index0 }}"
                 >
                   {%- for value in option.values -%}
-                    <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>
+                    <option
+                      value="{{ value | escape }}"
+                      {% if option.selected_value == value %}
+                        selected
+                      {% endif %}
+                    >
                       {{ value }}
                     </option>
                   {%- endfor -%}
@@ -127,7 +134,14 @@
               {{ 'products.product.quantity.label' | t }}
             </label>
             <div class="product-info__quantity-selector">
-              <button type="button" class="product-info__quantity-btn" data-quantity-minus aria-label="Menge verringern">-</button>
+              <button
+                type="button"
+                class="product-info__quantity-btn"
+                data-quantity-minus
+                aria-label="Menge verringern"
+              >
+                -
+              </button>
               <input
                 type="number"
                 id="Quantity-{{ section.id }}"
@@ -137,7 +151,9 @@
                 min="1"
                 data-quantity-input
               >
-              <button type="button" class="product-info__quantity-btn" data-quantity-plus aria-label="Menge erhöhen">+</button>
+              <button type="button" class="product-info__quantity-btn" data-quantity-plus aria-label="Menge erhöhen">
+                +
+              </button>
             </div>
           </div>
 
@@ -145,7 +161,9 @@
             type="submit"
             class="product-info__add-to-cart btn btn--primary"
             data-add-to-cart
-            {% unless product.available %}disabled{% endunless %}
+            {% unless product.available %}
+              disabled
+            {% endunless %}
           >
             <span data-add-to-cart-text>
               {%- if product.available -%}
@@ -168,7 +186,15 @@
             <details class="product-info__accordion">
               <summary class="product-info__accordion-header">
                 <span>{{ 'products.product.description' | t }}</span>
-                <svg class="product-info__accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg
+                  class="product-info__accordion-icon"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
               </summary>
@@ -322,7 +348,7 @@
   }
 
   .product-gallery__thumbnail.is-active {
-    border-color: #1F47FF;
+    border-color: #1f47ff;
   }
 
   .product-gallery__thumbnail img {
@@ -377,7 +403,7 @@
     font-family: 'Montserrat', sans-serif;
     font-size: 22px;
     font-weight: 600;
-    color: #25A525;
+    color: #25a525;
   }
 
   .product-info__price-regular {
@@ -408,7 +434,7 @@
   }
 
   .product-info__availability-dot--in-stock {
-    background-color: #25A525;
+    background-color: #25a525;
   }
 
   .product-info__availability-dot--out-of-stock {
@@ -508,7 +534,7 @@
     font-size: 16px;
     font-weight: 600;
     color: #fff;
-    background-color: #1F47FF;
+    background-color: #1f47ff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -546,8 +572,12 @@
   }
 
   @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   /* Product Description Accordion */
@@ -610,32 +640,31 @@
     }
 
     .product-section__container {
-      display: grid;
-      grid-template-columns: 1fr 420px;
+      display: flex;
       gap: 40px;
-      align-items: start;
+      align-items: flex-start;
     }
 
     .product-gallery {
+      flex: 1;
+      min-width: 0; /* Wichtig für Swiper in Flexbox */
       position: relative;
       margin-bottom: 0;
       padding-left: 90px;
     }
 
-    .product-gallery__swiper {
-      min-height: 500px;
-    }
-
-    .product-gallery__swiper .swiper-slide {
-      opacity: 1;
-    }
-
     .product-info {
+      width: 420px;
+      flex-shrink: 0;
       position: sticky;
       top: 100px;
       background: #fff;
       border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .product-gallery__swiper .swiper-slide {
+      opacity: 1;
     }
 
     .product-info__inner {
@@ -659,14 +688,13 @@
 {% comment %} Swiper.js {% endcomment %}
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const isMobile = window.innerWidth < 768;
-
+  document.addEventListener('DOMContentLoaded', function () {
     const swiper = new Swiper('.product-gallery__swiper', {
+      // Mobile defaults
       loop: true,
-      slidesPerView: isMobile ? 1.15 : 1,
+      slidesPerView: 1.15,
       centeredSlides: true,
-      spaceBetween: isMobile ? 10 : 0,
+      spaceBetween: 10,
       grabCursor: true,
 
       pagination: {
@@ -679,33 +707,29 @@
         prevEl: '.swiper-button-prev',
       },
 
+      // Desktop overrides
       breakpoints: {
         768: {
           slidesPerView: 1,
           centeredSlides: false,
           spaceBetween: 0,
           loop: false,
-        }
+        },
       },
 
       on: {
-        slideChange: function() {
-          // Update thumbnails
-          const realIndex = this.realIndex;
+        slideChange: function () {
           const thumbnails = document.querySelectorAll('.product-gallery__thumbnail');
           thumbnails.forEach((thumb, i) => {
-            thumb.classList.toggle('is-active', i === realIndex);
+            thumb.classList.toggle('is-active', i === this.realIndex);
           });
-        }
-      }
+        },
+      },
     });
 
     // Thumbnail clicks
-    const thumbnails = document.querySelectorAll('.product-gallery__thumbnail');
-    thumbnails.forEach((thumb, index) => {
-      thumb.addEventListener('click', () => {
-        swiper.slideToLoop(index);
-      });
+    document.querySelectorAll('.product-gallery__thumbnail').forEach((thumb, index) => {
+      thumb.addEventListener('click', () => swiper.slideToLoop(index));
     });
   });
 </script>
