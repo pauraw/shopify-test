@@ -101,29 +101,157 @@
 
   {% comment %} Theme JavaScript {% endcomment %}
   <script>
-    // Cart Drawer Toggle
-    document.addEventListener('DOMContentLoaded', function() {
+    (function() {
       const cartDrawer = document.getElementById('cart-drawer');
-      const cartToggles = document.querySelectorAll('[data-cart-toggle]');
-      const cartCloseButtons = document.querySelectorAll('[data-cart-drawer-close]');
+      const cartItemsContainer = document.getElementById('cart-drawer-items');
+      const cartSubtotal = document.getElementById('cart-drawer-subtotal');
+      const cartCount = document.querySelector('[data-cart-count]');
 
-      cartToggles.forEach(function(toggle) {
-        toggle.addEventListener('click', function(e) {
+      // Format money
+      function formatMoney(cents) {
+        return (cents / 100).toLocaleString('de-DE', {
+          style: 'currency',
+          currency: 'EUR'
+        });
+      }
+
+      // Open cart drawer
+      function openCartDrawer() {
+        cartDrawer.classList.add('is-open');
+        cartDrawer.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('cart-drawer-open');
+      }
+
+      // Close cart drawer
+      function closeCartDrawer() {
+        cartDrawer.classList.remove('is-open');
+        cartDrawer.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('cart-drawer-open');
+      }
+
+      // Render cart items
+      function renderCartItems(cart) {
+        if (cart.item_count === 0) {
+          cartItemsContainer.innerHTML = '<p class="cart-drawer__empty">Dein Warenkorb ist leer.</p>';
+        } else {
+          let html = '';
+          cart.items.forEach(function(item) {
+            const variantTitle = item.variant_title && item.variant_title !== 'Default Title' ? item.variant_title : '';
+            html += `
+              <div class="cart-item" data-line-key="${item.key}">
+                <div class="cart-item__image">
+                  ${item.image ? `<img src="${item.image.replace(/(\.[^.]+)$/, '_160x160$1')}" alt="${item.title}">` : ''}
+                </div>
+                <div class="cart-item__details">
+                  <h4 class="cart-item__title">${item.product_title}</h4>
+                  ${variantTitle ? `<p class="cart-item__variant">${variantTitle}</p>` : ''}
+                  <p class="cart-item__price">${formatMoney(item.final_line_price)}</p>
+                  <div class="cart-item__quantity">
+                    <button type="button" class="cart-item__quantity-btn" data-change-qty="${item.key}" data-qty="${item.quantity - 1}">-</button>
+                    <span class="cart-item__quantity-value">${item.quantity}</span>
+                    <button type="button" class="cart-item__quantity-btn" data-change-qty="${item.key}" data-qty="${item.quantity + 1}">+</button>
+                  </div>
+                </div>
+              </div>
+            `;
+          });
+          cartItemsContainer.innerHTML = html;
+
+          // Add event listeners for quantity buttons
+          cartItemsContainer.querySelectorAll('[data-change-qty]').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+              const key = this.getAttribute('data-change-qty');
+              const qty = parseInt(this.getAttribute('data-qty'));
+              updateCartItem(key, qty);
+            });
+          });
+        }
+
+        // Update subtotal
+        cartSubtotal.textContent = formatMoney(cart.total_price);
+
+        // Update cart count
+        if (cartCount) {
+          cartCount.textContent = cart.item_count;
+          cartCount.classList.toggle('is-hidden', cart.item_count === 0);
+        }
+      }
+
+      // Fetch and update cart
+      function fetchCart() {
+        return fetch('/cart.js')
+          .then(function(res) { return res.json(); })
+          .then(function(cart) {
+            renderCartItems(cart);
+            return cart;
+          });
+      }
+
+      // Add to cart
+      function addToCart(formData) {
+        return fetch('/cart/add.js', {
+          method: 'POST',
+          body: formData
+        })
+        .then(function(res) { return res.json(); })
+        .then(function() {
+          return fetchCart();
+        });
+      }
+
+      // Update cart item
+      function updateCartItem(key, quantity) {
+        fetch('/cart/change.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: key, quantity: quantity })
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(cart) {
+          renderCartItems(cart);
+        });
+      }
+
+      // Initialize on DOM ready
+      document.addEventListener('DOMContentLoaded', function() {
+        // Load cart on page load
+        fetchCart();
+
+        // Cart drawer toggle
+        document.querySelectorAll('[data-cart-toggle]').forEach(function(toggle) {
+          toggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            openCartDrawer();
+          });
+        });
+
+        // Close buttons
+        document.querySelectorAll('[data-cart-drawer-close]').forEach(function(button) {
+          button.addEventListener('click', closeCartDrawer);
+        });
+
+        // Intercept add to cart forms
+        document.addEventListener('submit', function(e) {
+          const form = e.target.closest('[data-product-form]');
+          if (!form) return;
+
           e.preventDefault();
-          cartDrawer.classList.add('is-open');
-          cartDrawer.setAttribute('aria-hidden', 'false');
-          document.body.classList.add('cart-drawer-open');
-        });
-      });
 
-      cartCloseButtons.forEach(function(button) {
-        button.addEventListener('click', function() {
-          cartDrawer.classList.remove('is-open');
-          cartDrawer.setAttribute('aria-hidden', 'true');
-          document.body.classList.remove('cart-drawer-open');
+          const submitBtn = form.querySelector('[data-add-to-cart]');
+          if (submitBtn) submitBtn.classList.add('is-loading');
+
+          const formData = new FormData(form);
+
+          addToCart(formData).then(function() {
+            if (submitBtn) submitBtn.classList.remove('is-loading');
+            openCartDrawer();
+          }).catch(function(err) {
+            console.error('Add to cart error:', err);
+            if (submitBtn) submitBtn.classList.remove('is-loading');
+          });
         });
       });
-    });
+    })();
   </script>
 </body>
 </html>

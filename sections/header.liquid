@@ -60,7 +60,13 @@
       </button>
 
       {% comment %} Mobile Menu Toggle {% endcomment %}
-      <button type="button" class="header__menu-toggle mobile-only" data-menu-toggle aria-label="Menü öffnen" aria-expanded="false">
+      <button
+        type="button"
+        class="header__menu-toggle mobile-only"
+        data-menu-toggle
+        aria-label="Menü öffnen"
+        aria-expanded="false"
+      >
         <span class="header__menu-icon">
           <span class="header__menu-line"></span>
           <span class="header__menu-line"></span>
@@ -167,7 +173,7 @@
 
   .header__nav-link:hover,
   .header__nav-link.is-active {
-    color: #1F47FF;
+    color: #1f47ff;
   }
 
   .header__dropdown {
@@ -233,7 +239,7 @@
     position: absolute;
     top: -5px;
     right: -8px;
-    background-color: #1F47FF;
+    background-color: #1f47ff;
     color: #fff;
     font-family: 'Montserrat', sans-serif;
     font-size: 10px;
@@ -272,15 +278,15 @@
     transition: all 0.3s ease;
   }
 
-  .header__menu-toggle[aria-expanded="true"] .header__menu-line:nth-child(1) {
+  .header__menu-toggle[aria-expanded='true'] .header__menu-line:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
   }
 
-  .header__menu-toggle[aria-expanded="true"] .header__menu-line:nth-child(2) {
+  .header__menu-toggle[aria-expanded='true'] .header__menu-line:nth-child(2) {
     opacity: 0;
   }
 
-  .header__menu-toggle[aria-expanded="true"] .header__menu-line:nth-child(3) {
+  .header__menu-toggle[aria-expanded='true'] .header__menu-line:nth-child(3) {
     transform: rotate(-45deg) translate(5px, -5px);
   }
 
@@ -359,18 +365,18 @@
     }
 
     .header__container {
-      padding: 20px 40px;
+      padding: 20px 0;
     }
   }
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const menuToggle = document.querySelector('[data-menu-toggle]');
     const mobileNav = document.querySelector('[data-mobile-nav]');
 
     if (menuToggle && mobileNav) {
-      menuToggle.addEventListener('click', function() {
+      menuToggle.addEventListener('click', function () {
         const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
         menuToggle.setAttribute('aria-expanded', !isExpanded);
         mobileNav.classList.toggle('is-open');
